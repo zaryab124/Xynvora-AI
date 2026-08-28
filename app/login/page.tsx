@@ -29,7 +29,14 @@ export default function LoginPage() {
 
       if (data.success && data.data?.token) {
         showToast({ title: "Welcome Back!", message: `Logged in as ${data.data.user.full_name}`, type: "success" });
-        router.push("/community");
+        const role = data.data.user.role;
+        if (role === 'CEO') router.push('/ceo/dashboard');
+        else if (role === 'CFO') router.push('/cfo/dashboard');
+        else if (role === 'CGO') router.push('/cgo/dashboard');
+        else if (role === 'DEVELOPER') router.push('/developer/dashboard');
+        else if (role === 'ADMIN') router.push('/admin/dashboard');
+        else if (role === 'COMMUNITY_MODERATOR') router.push('/admin/reports');
+        else router.push('/dashboard');
       } else {
         showToast({ title: "Login Failed", message: data.error || "Invalid credentials.", type: "error" });
       }
