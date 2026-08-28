@@ -1,0 +1,120 @@
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { GlowOrb } from "@/components/ui/GlowOrb";
+import { useToast } from "@/components/ui/Toast";
+
+export default function RegisterPage() {
+  const router = useRouter();
+  const { showToast } = useToast();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [company, setCompany] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  async function handleRegister(e: React.FormEvent) {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          full_name: fullName,
+          email,
+          password,
+          company,
+          role: "COMMUNITY_MEMBER",
+        }),
+      });
+      const data = await res.json();
+
+      if (data.success && data.data?.token) {
+        showToast({
+          title: "Account Created!",
+          message: "Welcome to the Xynvora AI Innovation Network.",
+          type: "success",
+        });
+        router.push("/community");
+      } else {
+        showToast({ title: "Registration Failed", message: data.error || "Please check your inputs.", type: "error" });
+      }
+    } catch {
+      showToast({ title: "Error", message: "Failed to connect to authentication server.", type: "error" });
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  return (
+    <div className="relative min-h-[85vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 py-10">
+      <GlowOrb color="#7c3aed" size={500} top="10%" right="30%" opacity={0.15} />
+
+      <Card glow glowColor="purple" className="w-full max-w-md p-8 space-y-6">
+        <div className="text-center space-y-2">
+          <Link href="/" className="inline-block mb-2">
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-cyan-500 via-indigo-500 to-purple-600 p-[1px] shadow-[0_0_20px_rgba(99,102,241,0.4)] mx-auto">
+              <div className="w-full h-full bg-slate-950 rounded-2xl flex items-center justify-center text-cyan-400 font-extrabold text-xl">
+                X
+              </div>
+            </div>
+          </Link>
+          <h1 className="text-2xl font-extrabold text-white tracking-tight">Join Xynvora AI</h1>
+          <p className="text-xs text-slate-400">Submit problems, review architectures, and build enterprise AI solutions.</p>
+        </div>
+
+        <form onSubmit={handleRegister} className="space-y-4">
+          <Input
+            label="Full Name"
+            placeholder="e.g. Zain"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
+
+          <Input
+            label="Email Address"
+            type="email"
+            placeholder="you@company.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <Input
+            label="Password"
+            type="password"
+            placeholder="Minimum 8 characters"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <Input
+            label="Company / Affiliation"
+            placeholder="e.g. AI Research Lab or Independent"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+          />
+
+          <Button type="submit" variant="gradient" size="lg" className="w-full" isLoading={loading}>
+            Create Community Account →
+          </Button>
+        </form>
+
+        <div className="pt-4 border-t border-slate-800 text-center text-xs text-slate-400">
+          Already have an account?{" "}
+          <Link href="/login" className="text-cyan-400 font-bold hover:underline">
+            Log In
+          </Link>
+        </div>
+      </Card>
+    </div>
+  );
+}

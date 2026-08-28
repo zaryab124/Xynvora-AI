@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: #020617;
+  color: #fff;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar         { width: 4px; }
+::-webkit-scrollbar-track   { background: #020617; }
+::-webkit-scrollbar-thumb   { background: rgba(0,212,255,0.35); border-radius: 4px; }
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder { color: rgba(255,255,255,0.3); }
+
+/* Focus rings */
+input:focus, textarea:focus, select:focus { outline: none; }
+
+@keyframes pulse-glow {
+  0%,100% { box-shadow: 0 0 10px rgba(0,212,255,0.3); }
+  50%      { box-shadow: 0 0 24px rgba(0,212,255,0.6); }
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0);    }
+  50%     { transform: translateY(-10px);}
+}
+
+@keyframes grid-pulse {
+  0%,100% { opacity: 1; }
+  50%     { opacity: 0.6; }
+}
+
+@keyframes particle-drift {
+  0%   { transform: translateY(0);   opacity: 0.4; }
+  50%  { transform: translateY(-8px); opacity: 0.7; }
+  100% { transform: translateY(0);   opacity: 0.4; }
+}
+
+.animate-float      { animation: float 6s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-grid-pulse { animation: grid-pulse 4s ease-in-out infinite; }
+
+/* Card 3D */
+.card-3d {
+  transition: transform 0.15s ease;
+  will-change: transform;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+}
+
+/* Gradient text */
+.gradient-text-cyan {
+  background: linear-gradient(135deg, #00d4ff, #7c3aed);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Section */
+.section-base {
+  min-height: 100vh;
+  padding: 100px 24px 80px;
+  position: relative;
+  overflow: hidden;
+}
