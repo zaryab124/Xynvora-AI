@@ -47,18 +47,28 @@ export async function POST(request: NextRequest) {
       }
 
       // Insert User
-      const userRes = await query<{ id: string }>(
-        `INSERT INTO users (email, password_hash, is_active, is_verified, verification_token, verification_token_expires)
-         VALUES ($1, $2, true, false, $3, $4)
-         RETURNING id`,
-        [validated.email, passwordHash, verificationToken, verificationExpires]
-      );
+      let userRes;
+      try {
+        userRes = await query<{ id: string }>(
+          `INSERT INTO users (email, password_hash, is_active, is_verified)
+           VALUES ($1, $2, true, true)
+           RETURNING id`,
+          [validated.email, passwordHash]
+        );
+      } catch {
+        userRes = await query<{ id: string }>(
+          `INSERT INTO users (email, password_hash, is_active, is_verified, verification_token, verification_token_expires)
+           VALUES ($1, $2, true, true, $3, $4)
+           RETURNING id`,
+          [validated.email, passwordHash, verificationToken, verificationExpires]
+        );
+      }
       userId = userRes.rows[0].id;
 
       // Insert Profile
       const profileRes = await query<{ id: string }>(
-        `INSERT INTO profiles (user_id, full_name, role, company, phone)
-         VALUES ($1, $2, $3, $4, $5)
+        `INSERT INTO profiles (user_id, full_name, role, company, phone, reputation_score)
+         VALUES ($1, $2, $3, $4, $5, 100)
          RETURNING id`,
         [userId, validated.full_name, assignedRole, validated.company || null, validated.phone || null]
       );
