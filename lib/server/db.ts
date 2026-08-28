@@ -44,7 +44,19 @@ function getSslConfig(connectionString?: string) {
 
 export function getPostgresPool(): Pool {
   if (!globalThis._pgPool) {
-    const connectionString = getConnectionString();
+    let connectionString = getConnectionString();
+    const isSsl = getSslConfig(connectionString);
+
+    // If custom SSL handling is enabled, strip sslmode param from URI to avoid pg driver certificate collision
+    if (connectionString && isSsl) {
+      connectionString = connectionString
+        .replace(/[?&]sslmode=[^&]+/gi, '')
+        .replace(/[?&]ssl=[^&]+/gi, '');
+      if (connectionString.endsWith('?') || connectionString.endsWith('&')) {
+        connectionString = connectionString.slice(0, -1);
+      }
+    }
+
     const maxConnections = parseInt(process.env.POSTGRES_MAX_CONNECTIONS || '10', 10);
     const idleTimeoutMillis = parseInt(process.env.POSTGRES_IDLE_TIMEOUT_MS || '20000', 10);
 
@@ -53,7 +65,7 @@ export function getPostgresPool(): Pool {
       max: maxConnections,
       idleTimeoutMillis,
       connectionTimeoutMillis: 10000,
-      ssl: getSslConfig(connectionString),
+      ssl: isSsl ? { rejectUnauthorized: false } : false,
     });
 
     globalThis._pgPool.on('error', (err) => {
