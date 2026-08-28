@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — ADMIN USER MANAGEMENT API
 // ─────────────────────────────────────────────────────────────
 
@@ -30,9 +30,9 @@ export async function GET(request: NextRequest) {
     } catch {
       return apiSuccess({
         users: [
-          { id: "usr_1", email: "ceo@xynvora.ai", full_name: "Zain ul Abideen", role: "CEO", is_active: true, reputation_score: 1000 },
-          { id: "usr_2", email: "cgo@xynvora.ai", full_name: "Hassan Raza", role: "CGO", is_active: true, reputation_score: 950 },
-          { id: "usr_3", email: "cfo@xynvora.ai", full_name: "Sara Malik", role: "CFO", is_active: true, reputation_score: 900 },
+          { id: "usr_1", email: "ceo@xynvora.ai", full_name: "Muhammad Zaryab Hassan", role: "CEO", is_active: true, reputation_score: 1000 },
+          { id: "usr_2", email: "cgo@xynvora.ai", full_name: "Mahad Aziz", role: "CGO", is_active: true, reputation_score: 950 },
+          { id: "usr_3", email: "cfo@xynvora.ai", full_name: "Muhammad Ismail", role: "CFO", is_active: true, reputation_score: 900 },
           { id: "usr_4", email: "dev@xynvora.ai", full_name: "Ahmed Khan", role: "DEVELOPER", is_active: true, reputation_score: 500 },
           { id: "usr_5", email: "mod@xynvora.ai", full_name: "Moderator Lead", role: "COMMUNITY_MODERATOR", is_active: true, reputation_score: 600 },
           { id: "usr_6", email: "admin@xynvora.ai", full_name: "Technical Administrator", role: "ADMIN", is_active: true, reputation_score: 800 },

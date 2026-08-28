@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export default function CeoActivitiesPage() {
           <h3 className="text-xl font-bold text-white">Q2 Strategic Innovation Town Hall</h3>
           <p className="text-xs text-slate-400">Quarterly address to 120+ community innovators and enterprise partners.</p>
           <div className="pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between">
-            <span>Host: Zain ul Abideen (CEO)</span>
+            <span>Host: Muhammad Zaryab Hassan (CEO)</span>
             <span>May 15, 2026</span>
           </div>
         </Card>

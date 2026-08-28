@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export default function CgoActivitiesPage() {
           <h3 className="text-xl font-bold text-white">Xynvora AI Global Hackathon 2026</h3>
           <p className="text-xs text-slate-400">Targeting 500+ global developers across Healthcare, Logistics, and E-commerce tracks.</p>
           <div className="pt-3 border-t border-slate-800 text-xs text-slate-400 flex justify-between">
-            <span>Lead: Hassan Raza (CGO)</span>
+            <span>Lead: Mahad Aziz (CGO)</span>
             <span>$25,000 Grants</span>
           </div>
         </Card>

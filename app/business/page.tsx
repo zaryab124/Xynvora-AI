@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Link from "next/link";
@@ -132,7 +132,7 @@ export default function BusinessPage() {
       <section className="rounded-3xl bg-slate-900/60 border border-slate-800 p-10 text-center space-y-6">
         <h2 className="text-2xl sm:text-3xl font-bold text-white">Need a Bespoke AI Architecture?</h2>
         <p className="text-xs sm:text-sm text-slate-400 max-w-xl mx-auto leading-relaxed">
-          Schedule an executive discovery session with our CEO Zain ul Abideen and AI architects to map out high-ROI automation for your organization.
+          Schedule an executive discovery session with our CEO Muhammad Zaryab Hassan and AI architects to map out high-ROI automation for your organization.
         </p>
         <Link href="/contact">
           <Button variant="primary" size="lg">

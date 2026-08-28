@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+﻿import { NextRequest } from 'next/server';
 import { apiError, apiSuccess, handleApiError } from '@/lib/server/api-response';
 import { requireAuth } from '@/lib/server/auth';
 import { query } from '@/lib/server/db';
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     } catch {
       return apiSuccess({
         posts: [
-          { id: "post_1", title: "Announcing Autonomous Healthcare Sprints for 2026", author_name: "Zain ul Abideen", is_pinned: true, is_locked: false },
+          { id: "post_1", title: "Announcing Autonomous Healthcare Sprints for 2026", author_name: "Muhammad Zaryab Hassan", is_pinned: true, is_locked: false },
           { id: "post_2", title: "Best Practices in Multi-Agent LangGraph Topologies", author_name: "Ahmed Khan", is_pinned: false, is_locked: false },
         ]
       });

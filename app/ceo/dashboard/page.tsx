@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -72,7 +72,7 @@ export default function CeoDashboardPage() {
             <span className="px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/30 text-xs font-mono font-bold">
               CEO EXECUTIVE SUITE
             </span>
-            <span className="text-xs text-slate-400">Chief Executive Officer • Zain ul Abideen</span>
+            <span className="text-xs text-slate-400">Chief Executive Officer • Muhammad Zaryab Hassan</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Strategic Direction & Venture Portfolio Command

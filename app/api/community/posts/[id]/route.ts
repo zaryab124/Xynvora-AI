@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — POST DETAIL, UPDATE & DELETE API
 // ─────────────────────────────────────────────────────────────
 
@@ -93,7 +93,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
             {
               id: "c_1",
               author_id: "usr_2",
-              author_name: "Sara Malik",
+              author_name: "Muhammad Ismail",
               author_role: "CFO",
               author_avatar: "/images/cfo.jpg",
               content: "Completely agree on state checkpointing. From an enterprise risk and cost governance standpoint, deterministic execution avoids costly redundant inference cycles.",

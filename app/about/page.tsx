@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React from "react";
 import Image from "next/image";
@@ -10,7 +10,7 @@ import { SectionTitle } from "@/components/ui/SectionTitle";
 
 const LEADERS = [
   {
-    name: "Zain ul Abideen",
+    name: "Muhammad Zaryab Hassan",
     role: "Chief Executive Officer",
     image: "/images/ceo xynvoraai.jpeg",
     bio: "Visionary executive leading the global development of autonomous enterprise AI systems, high-assurance architecture, and enterprise digital strategy.",
@@ -19,7 +19,7 @@ const LEADERS = [
     tag: "CEO",
   },
   {
-    name: "Sara Malik",
+    name: "Muhammad Ismail",
     role: "Chief Financial Officer",
     image: "/images/cfo.jpg",
     bio: "Financial architect directing capital discipline, ROI feasibility modeling, and financial risk mitigation across the entire innovation portfolio.",
@@ -28,7 +28,7 @@ const LEADERS = [
     tag: "CFO",
   },
   {
-    name: "Hassan Raza",
+    name: "Mahad Aziz",
     role: "Chief Growth Officer",
     image: "/images/cgo.jpg",
     bio: "Growth executive heading community innovation intake, problem validation, contributor ecosystems, and strategic enterprise partnerships.",

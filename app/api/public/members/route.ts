@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — PUBLIC MEMBERS DIRECTORY API
 // ─────────────────────────────────────────────────────────────
 
@@ -12,7 +12,7 @@ const DEFAULT_MEMBERS = [
   {
     id: "usr_ceo",
     username: "zain-ul-abideen",
-    full_name: "Zain ul Abideen",
+    full_name: "Muhammad Zaryab Hassan",
     role: "CEO",
     position: "Chief Executive Officer",
     company: "Xynvora AI",
@@ -26,7 +26,7 @@ const DEFAULT_MEMBERS = [
   {
     id: "usr_cfo",
     username: "sara-malik",
-    full_name: "Sara Malik",
+    full_name: "Muhammad Ismail",
     role: "CFO",
     position: "Chief Financial Officer",
     company: "Xynvora AI",
@@ -40,7 +40,7 @@ const DEFAULT_MEMBERS = [
   {
     id: "usr_cgo",
     username: "hassan-raza",
-    full_name: "Hassan Raza",
+    full_name: "Mahad Aziz",
     role: "CGO",
     position: "Chief Growth Officer",
     company: "Xynvora AI",

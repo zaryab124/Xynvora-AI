@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -69,7 +69,7 @@ export default function CfoDashboardPage() {
             <span className="px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 text-xs font-mono font-bold">
               CFO FINANCIAL SUITE
             </span>
-            <span className="text-xs text-slate-400">Chief Financial Officer • Sara Malik</span>
+            <span className="text-xs text-slate-400">Chief Financial Officer • Muhammad Ismail</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Financial Engineering & Capital Allocation Command

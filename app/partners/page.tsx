@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import { Button } from "@/components/ui/Button";
@@ -121,7 +121,7 @@ export default function PartnersPage() {
               </div>
               <h3 className="text-2xl font-bold text-white">Application Successfully Submitted</h3>
               <p className="text-xs text-slate-400 max-w-md mx-auto leading-relaxed">
-                Thank you for applying to partner with Xynvora AI. Our CGO Hassan Raza and executive partnership team will review your proposal within 2 business days.
+                Thank you for applying to partner with Xynvora AI. Our CGO Mahad Aziz and executive partnership team will review your proposal within 2 business days.
               </p>
               <Button variant="outline" size="sm" onClick={() => setSubmitted(false)}>
                 Submit Another Application

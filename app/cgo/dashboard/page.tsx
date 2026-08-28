@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -73,7 +73,7 @@ export default function CgoDashboardPage() {
             <span className="px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 text-xs font-mono font-bold">
               CGO EXECUTIVE PORTAL
             </span>
-            <span className="text-xs text-slate-400">Chief Growth Officer • Hassan Raza</span>
+            <span className="text-xs text-slate-400">Chief Growth Officer • Mahad Aziz</span>
           </div>
           <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             Innovation Pipeline & Community Growth Command

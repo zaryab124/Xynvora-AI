@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — PUBLIC COMMUNITY API
 // ─────────────────────────────────────────────────────────────
 
@@ -36,8 +36,8 @@ const DEFAULT_POSTS = [
     id: "post_2",
     title: "Xynvora AI Spring Hackathon 2026: Healthcare & Logistics Challenge",
     slug: "xynvora-ai-spring-hackathon-2026",
-    content: "We are thrilled to announce our upcoming community hackathon with $25,000 in project sponsorship grants. CGO Hassan Raza will host the opening kickoff session.",
-    author_name: "Hassan Raza",
+    content: "We are thrilled to announce our upcoming community hackathon with $25,000 in project sponsorship grants. CGO Mahad Aziz will host the opening kickoff session.",
+    author_name: "Mahad Aziz",
     author_role: "CGO",
     author_avatar: "/images/cgo.jpg",
     likes_count: 89,

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
@@ -85,7 +85,7 @@ export default function CreateIdeaPage() {
           </div>
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white">Submit Innovation Idea / Problem</h1>
           <p className="text-xs text-slate-400 mt-1">
-            Proposals are evaluated by Chief Growth Officer (CGO) Hassan Raza and routed to CEO/CFO for capital allocation and engineering execution.
+            Proposals are evaluated by Chief Growth Officer (CGO) Mahad Aziz and routed to CEO/CFO for capital allocation and engineering execution.
           </p>
         </div>
 

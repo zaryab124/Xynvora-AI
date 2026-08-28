@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -227,7 +227,7 @@ export default function CeoIdeaDetailPage() {
 
             {currentStatus === "CFO_REVIEW" && (
               <span className="px-3 py-1.5 rounded-xl bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-semibold">
-                ⏳ Under CFO Financial Modeling (Sara Malik)
+                ⏳ Under CFO Financial Modeling (Muhammad Ismail)
               </span>
             )}
 

@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+﻿import { NextRequest } from 'next/server';
 import { apiError, apiSuccess, handleApiError } from '@/lib/server/api-response';
 import { requireAuth } from '@/lib/server/auth';
 import { query } from '@/lib/server/db';
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
             action: "IDEA_STATUS_TRANSITION_SUBMITTED_TO_CGO_REVIEW",
             entity: "ideas",
             entity_id: "idea_1",
-            actor_name: "Hassan Raza",
+            actor_name: "Mahad Aziz",
             actor_role: "CGO",
             created_at: new Date(Date.now() - 3600000).toISOString(),
           },

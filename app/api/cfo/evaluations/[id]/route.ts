@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — FINANCIAL EVALUATION DETAIL API
 // ─────────────────────────────────────────────────────────────
 
@@ -48,7 +48,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
           sustainability_score: 92,
           recommendation: "APPROVE",
           conditions: "Phase 1 MVP deliverable within $45k cap before scaling multi-region cloud nodes.",
-          evaluator_name: "Sara Malik",
+          evaluator_name: "Muhammad Ismail",
           evaluator_role: "CFO",
           created_at: new Date().toISOString(),
         }

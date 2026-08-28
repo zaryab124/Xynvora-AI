@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — CEO STRATEGIC DASHBOARD API
 // ─────────────────────────────────────────────────────────────
 
@@ -82,7 +82,7 @@ export async function GET(request: NextRequest) {
             { squad: "Core Multi-Agent Architecture", lead: "Bilal Akhtar", active_sprints: 2, status: "Sprint Review" },
           ],
           strategicAlerts: [
-            { title: "CFO Financial Signoff Ready", detail: "Clinical Intake Assistant model validated by CFO Sara Malik ($45k cost / $180k rev).", type: "success" },
+            { title: "CFO Financial Signoff Ready", detail: "Clinical Intake Assistant model validated by CFO Muhammad Ismail ($45k cost / $180k rev).", type: "success" },
             { title: "Enterprise Pilot Expansion", detail: "City General Hospital agreement ready for final executive countersign.", type: "info" },
           ],
           recentActivity: auditRes.rows,
@@ -122,7 +122,7 @@ export async function GET(request: NextRequest) {
             { squad: "Clinical AI Squad", lead: "Ahmed Khan", active_sprints: 2, status: "On Track" },
           ],
           strategicAlerts: [
-            { title: "CFO Financial Signoff Ready", detail: "Clinical Intake Assistant validated by CFO Sara Malik.", type: "success" },
+            { title: "CFO Financial Signoff Ready", detail: "Clinical Intake Assistant validated by CFO Muhammad Ismail.", type: "success" },
           ],
           recentActivity: [],
         }

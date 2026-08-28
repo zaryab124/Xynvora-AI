@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────
 // data/index.ts  –  All static site data
 // ─────────────────────────────────────────────
 
@@ -20,7 +20,7 @@ export const SERVICES = [
 
 export const LEADERSHIP = [
   {
-    name: "Zain ul Abideen",
+    name: "Muhammad Zaryab Hassan",
     role: "Chief Executive Officer",
     emoji: "👨‍💼",
     colorFrom: "#06b6d4",
@@ -29,7 +29,7 @@ export const LEADERSHIP = [
     responsibilities: ["Company Vision", "Strategic Direction", "Partnerships"],
   },
   {
-    name: "Sara Malik",
+    name: "Muhammad Ismail",
     role: "Chief Financial Officer",
     emoji: "👩‍💼",
     colorFrom: "#a855f7",
@@ -38,7 +38,7 @@ export const LEADERSHIP = [
     responsibilities: ["Finance", "Operations", "Risk Management"],
   },
   {
-    name: "Hassan Raza",
+    name: "Mahad Aziz",
     role: "Chief Growth Officer",
     emoji: "🧑‍💼",
     colorFrom: "#10b981",
@@ -76,7 +76,7 @@ export const SOLUTIONS = [
 export const RESEARCH = [
   { title: "Agentic AI: The Next Frontier",               category: "Agentic AI",      author: "Ahmed Khan",      date: "May 2025", emoji: "🧠", color: "#00d4ff" },
   { title: "LLM Fine-tuning for Business Use Cases",      category: "Machine Learning", author: "Ayesha Siddiqui", date: "Mar 2025", emoji: "⚙️", color: "#a855f7" },
-  { title: "WhatsApp as a Business Intelligence Channel", category: "Automation",       author: "Zain ul Abideen",date: "Jan 2025", emoji: "💬", color: "#25d366" },
+  { title: "WhatsApp as a Business Intelligence Channel", category: "Automation",       author: "Muhammad Zaryab Hassan",date: "Jan 2025", emoji: "💬", color: "#25d366" },
 ];
 
 export const ROADMAP = [

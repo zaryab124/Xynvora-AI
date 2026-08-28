@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — ACTIVITIES & EVENTS API
 // ─────────────────────────────────────────────────────────────
 
@@ -32,7 +32,7 @@ const ACTIVITIES = [
     location: "Xynvora Live Stream",
     attendees_count: 420,
     description: "Open Q&A on our 2026 AI Agent roadmap, venture incubation model, and open research initiatives.",
-    host: "Zain ul Abideen (CEO)",
+    host: "Muhammad Zaryab Hassan (CEO)",
     status: "upcoming"
   },
   {
@@ -58,7 +58,7 @@ const ACTIVITIES = [
     location: "CGO Command Center",
     attendees_count: 45,
     description: "Onboarding 30 university ambassadors and regional innovation catalysts.",
-    host: "Hassan Raza (CGO)",
+    host: "Mahad Aziz (CGO)",
     status: "upcoming"
   },
   {
@@ -71,7 +71,7 @@ const ACTIVITIES = [
     location: "Executive Briefing Center",
     attendees_count: 20,
     description: "Reviewing Q2 venture valuations, enterprise pilot deployments, and capital allocations.",
-    host: "Zain ul Abideen (CEO) & Sara Malik (CFO)",
+    host: "Muhammad Zaryab Hassan (CEO) & Muhammad Ismail (CFO)",
     status: "upcoming"
   }
 ];

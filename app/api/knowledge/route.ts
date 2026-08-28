@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — SCALABLE KNOWLEDGE REPOSITORY API
 // ─────────────────────────────────────────────────────────────
 
@@ -55,7 +55,7 @@ const KNOWLEDGE_ARTICLES = [
     title: "Deep Space Telemetry Processing via Autonomous Edge Compute",
     slug: "deep-space-telemetry-edge-compute",
     category: "Space/Cosmos",
-    author: "Zain ul Abideen",
+    author: "Muhammad Zaryab Hassan",
     author_role: "Founder & Chief Executive Officer",
     date: "2026-02-14",
     read_time: "10 min read",
@@ -69,7 +69,7 @@ const KNOWLEDGE_ARTICLES = [
     title: "Open-Access AI Literacy and Adaptive Curriculum Generation",
     slug: "open-access-ai-literacy-curriculum",
     category: "Education",
-    author: "Hassan Raza",
+    author: "Mahad Aziz",
     author_role: "Chief Growth Officer",
     date: "2026-01-30",
     read_time: "5 min read",
@@ -83,7 +83,7 @@ const KNOWLEDGE_ARTICLES = [
     title: "Decentralized Venture Incubation & Innovation Pipelines",
     slug: "decentralized-venture-incubation",
     category: "Innovation",
-    author: "Sara Malik",
+    author: "Muhammad Ismail",
     author_role: "Chief Financial Officer",
     date: "2026-01-18",
     read_time: "7 min read",

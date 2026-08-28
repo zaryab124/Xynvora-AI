@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — IDEA DETAIL & EDIT API
 // ─────────────────────────────────────────────────────────────
 
@@ -130,7 +130,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
               old_status: "submitted",
               new_status: "cgo_review",
               notes: "Accepted into active CGO validation",
-              actor_name: "Hassan Raza",
+              actor_name: "Mahad Aziz",
               actor_role: "CGO",
               created_at: new Date(Date.now() - 3600000).toISOString(),
             }

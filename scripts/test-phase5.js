@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — PHASE 5 INNOVATION PIPELINE TEST SUITE
 // ─────────────────────────────────────────────────────────────
 
@@ -218,9 +218,9 @@ const TRANSITION_RULES = {
 };
 
 const member = { id: 'usr_member', email: 'member@xynvora.ai', role: 'COMMUNITY_MEMBER', full_name: 'Member Innovator' };
-const cgo = { id: 'usr_cgo', email: 'cgo@xynvora.ai', role: 'CGO', full_name: 'Hassan Raza' };
-const ceo = { id: 'usr_ceo', email: 'ceo@xynvora.ai', role: 'CEO', full_name: 'Zain ul Abideen' };
-const cfo = { id: 'usr_cfo', email: 'cfo@xynvora.ai', role: 'CFO', full_name: 'Sara Malik' };
+const cgo = { id: 'usr_cgo', email: 'cgo@xynvora.ai', role: 'CGO', full_name: 'Mahad Aziz' };
+const ceo = { id: 'usr_ceo', email: 'ceo@xynvora.ai', role: 'CEO', full_name: 'Muhammad Zaryab Hassan' };
+const cfo = { id: 'usr_cfo', email: 'cfo@xynvora.ai', role: 'CFO', full_name: 'Muhammad Ismail' };
 const dev = { id: 'usr_dev', email: 'dev@xynvora.ai', role: 'DEVELOPER', full_name: 'Ahmed Khan' };
 
 let currentIdea = {

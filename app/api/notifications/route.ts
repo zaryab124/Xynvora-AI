@@ -1,4 +1,4 @@
-// ─────────────────────────────────────────────────────────────
+﻿// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — NOTIFICATIONS API
 // ─────────────────────────────────────────────────────────────
 
@@ -29,7 +29,7 @@ export async function GET(request: NextRequest) {
           {
             id: "notif_1",
             title: "Idea Triage Update",
-            message: "CGO Hassan Raza validated your idea 'Autonomous Medical Triage & Clinical Assistant' with Urgent Priority.",
+            message: "CGO Mahad Aziz validated your idea 'Autonomous Medical Triage & Clinical Assistant' with Urgent Priority.",
             type: "IDEA_STATUS_CHANGE",
             link: "/ideas/autonomous-medical-triage-clinical-assistant",
             is_read: false,
@@ -38,7 +38,7 @@ export async function GET(request: NextRequest) {
           {
             id: "notif_2",
             title: "New Discussion Reply",
-            message: "Sara Malik replied to your discussion post.",
+            message: "Muhammad Ismail replied to your discussion post.",
             type: "COMMUNITY_REPLY",
             link: "/community",
             is_read: true,

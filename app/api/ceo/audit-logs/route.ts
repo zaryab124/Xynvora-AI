@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server';
+﻿import { NextRequest } from 'next/server';
 import { apiError, apiSuccess, handleApiError } from '@/lib/server/api-response';
 import { requireAuth } from '@/lib/server/auth';
 import { query } from '@/lib/server/db';
@@ -24,9 +24,9 @@ export async function GET(request: NextRequest) {
     } catch {
       return apiSuccess({
         auditLogs: [
-          { id: "aud_1", action: "PROJECT_COMMISSIONED", entity: "projects", actor_name: "Zain ul Abideen", actor_role: "CEO", created_at: new Date().toISOString() },
-          { id: "aud_2", action: "CFO_FINANCIAL_EVALUATION_COMPLETED", entity: "financial_evaluations", actor_name: "Sara Malik", actor_role: "CFO", created_at: new Date(Date.now() - 3600000).toISOString() },
-          { id: "aud_3", action: "IDEA_STATUS_TRANSITION_CGO_REVIEW_TO_CEO_REVIEW", entity: "ideas", actor_name: "Hassan Raza", actor_role: "CGO", created_at: new Date(Date.now() - 7200000).toISOString() },
+          { id: "aud_1", action: "PROJECT_COMMISSIONED", entity: "projects", actor_name: "Muhammad Zaryab Hassan", actor_role: "CEO", created_at: new Date().toISOString() },
+          { id: "aud_2", action: "CFO_FINANCIAL_EVALUATION_COMPLETED", entity: "financial_evaluations", actor_name: "Muhammad Ismail", actor_role: "CFO", created_at: new Date(Date.now() - 3600000).toISOString() },
+          { id: "aud_3", action: "IDEA_STATUS_TRANSITION_CGO_REVIEW_TO_CEO_REVIEW", entity: "ideas", actor_name: "Mahad Aziz", actor_role: "CGO", created_at: new Date(Date.now() - 7200000).toISOString() },
         ]
       });
     }
