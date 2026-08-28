@@ -20,9 +20,11 @@ export async function GET(request: NextRequest) {
     } catch {
       return apiSuccess({
         team: [
-          { full_name: "Ahmed Khan", position: "Senior AI Agent Architect", reputation_score: 500, availability: "Available" },
-          { full_name: "Amina Farooq", position: "Full Stack Engineer", reputation_score: 320, availability: "Assigned to Sprint" },
-          { full_name: "Bilal Akhtar", position: "Systems Lead", reputation_score: 410, availability: "Available" },
+          { full_name: "Mohib", position: "Software Head & Lead Architect", reputation_score: 980, availability: "Active on Sprints" },
+          { full_name: "Musab", position: "Embedded Technologies Head", reputation_score: 950, availability: "Active on Hardware" },
+          { full_name: "Ahmed Khan", position: "Senior AI Agent Architect", reputation_score: 850, availability: "Available" },
+          { full_name: "Fatima Noor", position: "UI/UX & Frontend Lead", reputation_score: 800, availability: "Available" },
+          { full_name: "Bilal Akhtar", position: "Systems & Database Lead", reputation_score: 750, availability: "Assigned" },
         ]
       });
     }

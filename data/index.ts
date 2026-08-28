@@ -1,4 +1,4 @@
-﻿// ─────────────────────────────────────────────
+// ─────────────────────────────────────────────
 // data/index.ts  –  All static site data
 // ─────────────────────────────────────────────
 
@@ -49,12 +49,12 @@ export const LEADERSHIP = [
 ];
 
 export const TEAM = [
-  { name: "Ahmed Khan",      role: "AI Engineer",    skills: ["Python", "ML", "AWS"],              emoji: "👨‍💻", color: "#00d4ff" },
-  { name: "Fatima Noor",     role: "Frontend Dev",   skills: ["React", "Tailwind", "Figma"],       emoji: "👩‍🎨", color: "#a855f7" },
-  { name: "Bilal Akhtar",    role: "Backend Dev",    skills: ["Node.js", "Express", "PostgreSQL"], emoji: "👨‍🔧", color: "#f59e0b" },
-  { name: "Ayesha Siddiqui", role: "Data Scientist", skills: ["TensorFlow", "Python", "BI"],       emoji: "👩‍🔬", color: "#10b981" },
-  { name: "Umar Farooq",     role: "DevOps Engineer",skills: ["AWS", "Docker", "CI/CD"],           emoji: "👨‍🚀", color: "#ef4444" },
-  { name: "Zara Ali",        role: "Product Manager",skills: ["Strategy", "Agile", "UX"],          emoji: "👩‍💼", color: "#ec4899" },
+  { name: "Mohib",           role: "Software Head",              skills: ["AI Architecture", "Next.js", "Distributed Systems", "TypeScript"], emoji: "👨‍💻", color: "#00d4ff" },
+  { name: "Musab",           role: "Embedded Technologies Head", skills: ["Embedded C/C++", "IoT Edge", "Firmware", "Microcontrollers"],   emoji: "⚡", color: "#f59e0b" },
+  { name: "Musfeera Kiran",  role: "Admin & Moderator Lead",     skills: ["Platform Security", "RBAC", "Content Safety", "Governance"],     emoji: "🛡️", color: "#ec4899" },
+  { name: "Ahmed Khan",      role: "Senior AI Engineer",         skills: ["Python", "LangGraph", "PyTorch", "AWS"],                           emoji: "🤖", color: "#10b981" },
+  { name: "Fatima Noor",     role: "UI/UX & Frontend Lead",      skills: ["React", "Tailwind CSS", "Design Systems", "Figma"],                emoji: "👩‍🎨", color: "#a855f7" },
+  { name: "Bilal Akhtar",    role: "Database & Backend Lead",    skills: ["PostgreSQL", "Supabase", "Node.js", "APIs"],                       emoji: "👨‍🔧", color: "#06b6d4" },
 ];
 
 export const PORTFOLIO = [
