@@ -6,28 +6,61 @@ import { Pool, QueryResult, QueryResultRow } from 'pg';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { logger } from './logger';
 
-// ─── Direct PostgreSQL Connection Pool ───────────────────────
-let pgPool: Pool | null = null;
+// ─── Global Pool Cache for Serverless / Next.js Fast-Refresh ─
+declare global {
+  // eslint-disable-next-line no-var
+  var _pgPool: Pool | undefined;
+  // eslint-disable-next-line no-var
+  var _supabaseAdmin: SupabaseClient | undefined;
+}
+
+/**
+ * Resolve PostgreSQL connection string from environment
+ * Supports standard DATABASE_URL, Vercel Supabase integration, and Neon/Postgres variables
+ */
+function getConnectionString(): string | undefined {
+  return (
+    process.env.DATABASE_URL ||
+    process.env.POSTGRES_URL ||
+    process.env.POSTGRES_PRISMA_URL ||
+    process.env.POSTGRES_URL_NON_POOLING
+  );
+}
+
+/**
+ * Determine if SSL should be enforced for PostgreSQL connection
+ */
+function getSslConfig(connectionString?: string) {
+  if (!connectionString) return false;
+  const requiresSsl =
+    process.env.NODE_ENV === 'production' ||
+    process.env.VERCEL === '1' ||
+    connectionString.includes('supabase.co') ||
+    connectionString.includes('sslmode=require') ||
+    connectionString.includes('pooler.supabase.com');
+
+  return requiresSsl ? { rejectUnauthorized: false } : false;
+}
 
 export function getPostgresPool(): Pool {
-  if (!pgPool) {
-    const connectionString = process.env.DATABASE_URL;
-    const maxConnections = parseInt(process.env.POSTGRES_MAX_CONNECTIONS || '20', 10);
-    const idleTimeoutMillis = parseInt(process.env.POSTGRES_IDLE_TIMEOUT_MS || '30000', 10);
+  if (!globalThis._pgPool) {
+    const connectionString = getConnectionString();
+    const maxConnections = parseInt(process.env.POSTGRES_MAX_CONNECTIONS || '10', 10);
+    const idleTimeoutMillis = parseInt(process.env.POSTGRES_IDLE_TIMEOUT_MS || '20000', 10);
 
-    pgPool = new Pool({
+    globalThis._pgPool = new Pool({
       connectionString,
       max: maxConnections,
       idleTimeoutMillis,
-      connectionTimeoutMillis: 5000,
-      ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+      connectionTimeoutMillis: 10000,
+      ssl: getSslConfig(connectionString),
     });
 
-    pgPool.on('error', (err) => {
+    globalThis._pgPool.on('error', (err) => {
       logger.error('Unexpected error on idle PostgreSQL client', err, undefined, 'Database');
     });
   }
-  return pgPool;
+  return globalThis._pgPool;
 }
 
 /**
@@ -69,11 +102,14 @@ export async function checkDatabaseConnection(): Promise<{
       latencyMs: Date.now() - start,
     };
   } catch (pgError: unknown) {
-    // If direct PG fails, attempt Supabase ping if configured
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    // If direct PG fails, attempt Supabase client ping if configured
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+    const supabaseKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-    if (supabaseUrl && supabaseKey && supabaseUrl !== 'https://your-project.supabase.co') {
+    if (supabaseUrl && supabaseKey && !supabaseUrl.includes('your-project.supabase.co')) {
       try {
         const client = getSupabaseAdminClient();
         const { error } = await client.from('system_settings').select('key').limit(1);
@@ -84,7 +120,7 @@ export async function checkDatabaseConnection(): Promise<{
             latencyMs: Date.now() - start,
           };
         }
-      } catch (sbError: unknown) {
+      } catch {
         // Continue to error return
       }
     }
@@ -100,22 +136,28 @@ export async function checkDatabaseConnection(): Promise<{
 }
 
 // ─── Supabase Client Factory ─────────────────────────────────
-let supabaseAdmin: SupabaseClient | null = null;
 
 /**
  * Get Supabase Admin Client (Service Role for Server-Side Operations)
  */
 export function getSupabaseAdminClient(): SupabaseClient {
-  if (!supabaseAdmin) {
-    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://your-project.supabase.co';
-    const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-key';
+  if (!globalThis._supabaseAdmin) {
+    const supabaseUrl =
+      process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      process.env.SUPABASE_URL ||
+      'https://your-project.supabase.co';
+    const serviceRoleKey =
+      process.env.SUPABASE_SERVICE_ROLE_KEY ||
+      process.env.SUPABASE_ANON_KEY ||
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
+      'dummy-key-for-build';
 
-    supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
+    globalThis._supabaseAdmin = createClient(supabaseUrl, serviceRoleKey, {
       auth: {
         autoRefreshToken: false,
         persistSession: false,
       },
     });
   }
-  return supabaseAdmin;
+  return globalThis._supabaseAdmin;
 }

@@ -46,7 +46,10 @@ export async function auth(reqHeaders?: Headers): Promise<UserProfile | null> {
     const token = extractToken(reqHeaders);
     if (!token) return null;
 
-    const secret = process.env.JWT_SECRET || 'xynvora_development_jwt_secret_change_in_production_super_secure_key';
+    const secret =
+      process.env.SUPABASE_JWT_SECRET ||
+      process.env.JWT_SECRET ||
+      'xynvora_development_jwt_secret_change_in_production_super_secure_key';
     const decoded = jwt.verify(token, secret) as DecodedToken;
     const userId = decoded.id || decoded.sub;
 
@@ -166,7 +169,10 @@ export async function requirePermission(
  * Sign a JWT token for a user
  */
 export function signAuthToken(user: { id: string; email: string; role: UserRole }): string {
-  const secret = process.env.JWT_SECRET || 'xynvora_development_jwt_secret_change_in_production_super_secure_key';
+  const secret =
+    process.env.SUPABASE_JWT_SECRET ||
+    process.env.JWT_SECRET ||
+    'xynvora_development_jwt_secret_change_in_production_super_secure_key';
   const expiresIn = (process.env.JWT_EXPIRES_IN || '7d') as jwt.SignOptions['expiresIn'];
 
   return jwt.sign(
