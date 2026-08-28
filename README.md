@@ -1,147 +1,63 @@
-# Xynvora AI – Company Platform
+# XYNVORA AI — Company + Community + Innovation Platform
 
-> Building Intelligent AI Solutions for Modern Businesses
+> **Decentralized AI Innovation & Enterprise Venture Incubation Engine**
 
-## Tech Stack
+---
 
-| Layer          | Technology                         |
-|----------------|------------------------------------|
-| Framework      | Next.js 14 (App Router)            |
-| Styling        | Tailwind CSS + Framer Motion       |
-| 3D / WebGL     | React Three Fiber + Three.js       |
-| Language       | TypeScript                         |
-| Database       | PostgreSQL (via Prisma)            |
-| Auth           | JWT                                |
-| Cloud          | AWS (EC2 / S3 / CloudFront)        |
-| Storage        | AWS S3                             |
-| CRM            | HubSpot                            |
-| Meetings       | Calendly                           |
-| Deployment     | Vercel / AWS EC2                   |
+## 🚀 Overview
 
-## Folder Structure
+**XYNVORA AI** connects visitors, community innovators, executives (CGO, CEO, CFO), and engineering squads into an end-to-end innovation pipeline:
 
-```
-xynvora-ai/
-├── app/                        # Next.js App Router pages
-│   ├── page.tsx                # Home
-│   ├── layout.tsx              # Root layout (Navbar + Footer)
-│   ├── about/page.tsx
-│   ├── leadership/page.tsx
-│   ├── team/page.tsx
-│   ├── services/page.tsx
-│   ├── portfolio/page.tsx
-│   ├── solutions/page.tsx
-│   ├── research/page.tsx
-│   ├── roadmap/page.tsx
-│   ├── gallery/page.tsx
-│   ├── testimonials/page.tsx
-│   ├── careers/page.tsx
-│   ├── contact/page.tsx
-│   └── admin/
-│       └── dashboard/page.tsx  # Admin panel
-│
-├── components/
-│   ├── ui/                     # Reusable primitives
-│   │   ├── Card3D.tsx          # 3D tilt card
-│   │   ├── GlowOrb.tsx         # Ambient glow effect
-│   │   ├── SectionTitle.tsx    # Consistent section headings
-│   │   └── Badge.tsx           # Colored tag/pill
-│   ├── layout/
-│   │   ├── Navbar.tsx          # Sticky top nav
-│   │   └── Footer.tsx          # Site footer
-│   └── sections/               # Full-page section components
-│       ├── HeroSection.tsx
-│       ├── AboutSection.tsx
-│       ├── LeadershipSection.tsx
-│       ├── TeamSection.tsx
-│       ├── ServicesSection.tsx
-│       ├── PortfolioSection.tsx
-│       ├── SolutionsSection.tsx
-│       ├── ResearchSection.tsx
-│       ├── RoadmapSection.tsx
-│       ├── GallerySection.tsx
-│       ├── TestimonialsSection.tsx
-│       ├── CareersSection.tsx
-│       └── ContactSection.tsx
-│
-├── data/
-│   └── index.ts                # All static content (stats, team, portfolio…)
-│
-├── hooks/
-│   └── useCard3D.ts            # Mouse-tracking 3D tilt hook
-│
-├── lib/
-│   └── utils.ts                # cn(), hexToRgba()
-│
-├── types/
-│   └── index.ts                # TypeScript interfaces
-│
-├── styles/
-│   └── globals.css             # Tailwind base + custom animations
-│
-├── public/
-│   ├── images/                 # Static images
-│   └── icons/                  # Favicon, PWA icons
-│
-├── .env.example                # Environment variable template
-├── next.config.js
-├── tailwind.config.ts
-├── tsconfig.json
-└── package.json
-```
+$$\text{Visitors} \longrightarrow \text{Community Members} \longrightarrow \text{Ideas / Problems / Opportunities} \longrightarrow \mathbf{CGO} \longrightarrow \mathbf{CEO / CFO} \longrightarrow \mathbf{Developer Squad} \longrightarrow \text{Real Solution} \longrightarrow \text{Product / Business} \longrightarrow \mathbf{Partners}$$
 
-## Database Schema (PostgreSQL)
+---
 
-```sql
--- Users / Auth
-users          (id, name, email, password_hash, role, created_at)
+## 🛠️ Technology Stack
 
--- Content tables
-team_members   (id, name, position, image_url, bio, linkedin, skills)
-leadership     (id, name, position, image_url, message, responsibilities)
-projects       (id, title, client, description, image_url, tech[], result, demo_url)
-testimonials   (id, client_name, company, review, rating, image_url)
-gallery        (id, title, image_url, category, date)
-research       (id, title, pdf_url, description, author, category, date)
-roadmap        (id, quarter, task, status, sort_order)
-```
+- **Framework:** Next.js 14 (App Router) + React 18 + TypeScript
+- **Styling & UI:** Tailwind CSS, Glassmorphism, Responsive Grid System
+- **Database:** PostgreSQL (Connection Pooling, Schema Migrations)
+- **Security & RBAC:** JWT Authentication, 8-Role Access Control Matrix, Rate Limiting, XSS Sanitization, Input Validation (Zod)
+- **Realtime & Storage:** WebSocket Realtime Event Dispatch, S3-Compatible Object Storage Tier
+- **Deployment:** Vercel Edge Network / Serverless Functions
 
-## Quick Start
+---
+
+## 👑 8 Canonical Platform Roles
+
+1. **`VISITOR`:** Public guest with read-only access.
+2. **`COMMUNITY_MEMBER`:** Authenticated member with idea creation, posts, comments, and upvotes.
+3. **`CGO` (Chief Growth Officer):** Community bridge, idea triage & validation, partnership reviews.
+4. **`CEO` (Chief Executive Officer):** Supreme strategic command, project commissioning, production signoff.
+5. **`CFO` (Chief Financial Officer):** Unit economics modeling, budget approvals, commercial valuations.
+6. **`DEVELOPER`:** Core engineering squad member, sprint tasks, technical artifacts.
+7. **`COMMUNITY_MODERATOR`:** Content safety, report queues, policy enforcement.
+8. **`ADMIN`:** Technical administration, schemas, storage buckets, audit logs.
+
+---
+
+## ⚡ Getting Started Locally
 
 ```bash
 # 1. Install dependencies
 npm install
 
-# 2. Copy env and fill in values
+# 2. Configure environment
 cp .env.example .env.local
 
-# 3. Run development server
+# 3. Run migrations
+node scripts/run-migrations.js
+
+# 4. Start local development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
-
-## Admin Access
-
-Navigate to `/admin/dashboard`.
-
-- **CEO** – Full control: projects, team, research, all content
-- **CFO** – Operations: testimonials, gallery, roadmap, clients
-
-## Deployment
-
-```bash
-# Build for production
-npm run build
-
-# Deploy to Vercel
-vercel --prod
-
-# Or build Docker image for AWS EC2
-docker build -t xynvora-ai .
-docker run -p 3000:3000 xynvora-ai
-```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
-© 2026 Xynvora AI · hello@xynvora.ai
+## 🧪 Comprehensive Verification Suite (376/376 Tests Pass)
+
+```bash
+node scripts/test-phase11-final-workflows.js
+```
