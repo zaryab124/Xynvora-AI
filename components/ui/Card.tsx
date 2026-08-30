@@ -12,19 +12,19 @@ export interface CardProps extends HTMLAttributes<HTMLDivElement> {
 export const Card = forwardRef<HTMLDivElement, CardProps>(
   ({ className, glow = false, glowColor = "cyan", gradientBorder = false, children, ...props }, ref) => {
     const glowShadow = {
-      cyan: "hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] hover:border-cyan-500/40",
-      purple: "hover:shadow-[0_0_30px_rgba(168,85,247,0.15)] hover:border-purple-500/40",
-      emerald: "hover:shadow-[0_0_30px_rgba(16,185,129,0.15)] hover:border-emerald-500/40",
-      amber: "hover:shadow-[0_0_30px_rgba(245,158,11,0.15)] hover:border-amber-500/40",
+      cyan: "hover:shadow-[0_0_35px_rgba(6,182,212,0.25)] hover:border-cyan-400/60",
+      purple: "hover:shadow-[0_0_35px_rgba(168,85,247,0.25)] hover:border-purple-400/60",
+      emerald: "hover:shadow-[0_0_35px_rgba(16,185,129,0.25)] hover:border-emerald-400/60",
+      amber: "hover:shadow-[0_0_35px_rgba(245,158,11,0.25)] hover:border-amber-400/60",
     };
 
     return (
       <div
         ref={ref}
         className={cn(
-          "relative rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 transition-all duration-300 overflow-hidden",
+          "relative rounded-2xl bg-slate-900/85 backdrop-blur-xl border border-slate-700/70 shadow-lg shadow-slate-950/40 transition-all duration-300 overflow-hidden",
           glow && glowShadow[glowColor],
-          gradientBorder && "before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-cyan-500/20 before:via-purple-500/20 before:to-transparent before:rounded-2xl before:-z-10",
+          gradientBorder && "before:absolute before:inset-0 before:p-[1px] before:bg-gradient-to-r before:from-cyan-500/30 before:via-purple-500/30 before:to-transparent before:rounded-2xl before:-z-10",
           className
         )}
         {...props}

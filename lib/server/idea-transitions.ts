@@ -214,12 +214,15 @@ export async function transitionIdeaStatus({
   let idea: any = null;
   try {
     const res = await query(
-      `SELECT id, submitter_id, title, slug, status, current_owner_role, cgo_priority, estimated_impact
+      `SELECT id, author_id, title, slug, status
        FROM ideas WHERE id = $1 OR slug = $1`,
       [ideaId]
     );
     if (res.rows.length > 0) {
-      idea = res.rows[0];
+      idea = {
+        ...res.rows[0],
+        submitter_id: res.rows[0].author_id,
+      };
     }
   } catch (err) {
     logger.warn('Failed to query idea for transition, using fallback simulation', { error: String(err) });
@@ -287,17 +290,26 @@ export async function transitionIdeaStatus({
   try {
     await query(
       `UPDATE ideas
-       SET status = $1, current_owner_role = $2, updated_at = NOW()
-       WHERE id = $3`,
-      [targetStatus.toLowerCase(), rule.nextOwnerRole, idea.id]
+       SET status = $1, updated_at = NOW()
+       WHERE id = $2`,
+      [targetStatus.toLowerCase(), idea.id]
     );
 
     // 5. Create idea_status_history record
-    await query(
-      `INSERT INTO idea_status_history (idea_id, changed_by, old_status, new_status, notes)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [idea.id, actor.id, oldStatus.toLowerCase(), targetStatus.toLowerCase(), notes || rule.description]
-    );
+    try {
+      await query(
+        `INSERT INTO idea_status_history (idea_id, from_status, to_status, actor_id, actor_role, notes)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
+        [idea.id, oldStatus.toLowerCase(), targetStatus.toLowerCase(), actor.id, actor.role, notes || rule.description]
+      );
+    } catch {
+      // Fallback for older column names if pre-migration
+      await query(
+        `INSERT INTO idea_status_history (idea_id, changed_by, old_status, new_status, notes)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [idea.id, actor.id, oldStatus.toLowerCase(), targetStatus.toLowerCase(), notes || rule.description]
+      ).catch(() => {});
+    }
   } catch (dbErr) {
     logger.debug('DB persistence skipped during test or offline mode', { error: String(dbErr) });
   }

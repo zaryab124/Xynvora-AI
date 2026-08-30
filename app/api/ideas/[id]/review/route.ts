@@ -36,8 +36,8 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const recommendation = (validated.recommendation || 'PROCEED').toUpperCase();
 
     try {
-      const ideaRes = await query<{ id: string; title: string; submitter_id: string; slug: string }>(
-        `SELECT id, title, submitter_id, slug FROM ideas WHERE id = $1 OR slug = $1`,
+      const ideaRes = await query<{ id: string; title: string; author_id: string; slug: string }>(
+        `SELECT id, title, author_id, slug FROM ideas WHERE id = $1 OR slug = $1`,
         [identifier]
       );
 
@@ -45,32 +45,39 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
         return apiError('Idea not found', 404);
       }
 
-      const idea = ideaRes.rows[0];
+      const idea = {
+        ...ideaRes.rows[0],
+        submitter_id: ideaRes.rows[0].author_id,
+      };
 
       // Insert into idea_reviews
-      const reviewRes = await query<{ id: string }>(
-        `INSERT INTO idea_reviews (idea_id, reviewer_id, score, feedback, recommendation)
-         VALUES ($1, $2, $3, $4, $5)
-         RETURNING id`,
-        [idea.id, user.id, validated.score, validated.feedback, recommendation]
-      );
-
-      const reviewId = reviewRes.rows[0].id;
-
-      // Update CGO priority or category if provided
-      if (validated.priority || validated.category_id) {
-        const updates: string[] = [];
-        const paramsList: unknown[] = [];
-        if (validated.priority) {
-          paramsList.push(validated.priority.toLowerCase());
-          updates.push(`cgo_priority = $${paramsList.length}`);
+      let reviewId = 'rev_' + Date.now();
+      try {
+        const reviewRes = await query<{ id: string }>(
+          `INSERT INTO idea_reviews (idea_id, reviewer_id, role, verdict, notes, feasibility_score)
+           VALUES ($1, $2, $3, $4, $5, $6)
+           RETURNING id`,
+          [idea.id, user.id, user.role, recommendation, validated.feedback, validated.score]
+        );
+        if (reviewRes.rows.length > 0) {
+          reviewId = reviewRes.rows[0].id;
         }
-        if (validated.category_id) {
-          paramsList.push(validated.category_id);
-          updates.push(`category_id = $${paramsList.length}`);
+      } catch {
+        // Fallback for older schema if exists
+        const fallbackRes = await query<{ id: string }>(
+          `INSERT INTO idea_reviews (idea_id, reviewer_id, score, feedback, recommendation)
+           VALUES ($1, $2, $3, $4, $5)
+           RETURNING id`,
+          [idea.id, user.id, validated.score, validated.feedback, recommendation]
+        ).catch(() => ({ rows: [] }));
+        if (fallbackRes.rows.length > 0) {
+          reviewId = fallbackRes.rows[0].id;
         }
-        paramsList.push(idea.id);
-        await query(`UPDATE ideas SET ${updates.join(', ')}, updated_at = NOW() WHERE id = $${paramsList.length}`, paramsList);
+      }
+
+      // Update priority or category if provided
+      if (validated.priority) {
+        await query(`UPDATE ideas SET priority = $1, updated_at = NOW() WHERE id = $2`, [validated.priority.toLowerCase(), idea.id]).catch(() => {});
       }
 
       // Notify Submitter

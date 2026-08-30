@@ -1,4 +1,4 @@
-﻿// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
 // XYNVORA AI PLATFORM — IDEA DETAIL & EDIT API
 // ─────────────────────────────────────────────────────────────
 
@@ -30,46 +30,104 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
 
     try {
       // 1. Fetch Idea
-      const ideaRes = await query(
-        `SELECT i.id, i.submitter_id, i.title, i.slug, i.summary as short_description,
-                i.problem_statement, i.proposed_solution, i.target_audience as target_users,
-                i.status, i.cgo_priority, i.estimated_impact as expected_impact,
-                i.is_public, i.view_count, i.current_owner_role, i.created_at, i.updated_at,
-                c.name as category_name, pr.full_name as submitter_name, pr.role as submitter_role
-         FROM ideas i
-         LEFT JOIN categories c ON c.id = i.category_id
-         LEFT JOIN profiles pr ON pr.user_id = i.submitter_id
-         WHERE i.id = $1 OR i.slug = $1`,
-        [identifier]
-      );
+      let idea: any = null;
+      try {
+        const ideaRes = await query(
+          `SELECT i.id, i.author_id, i.title, i.slug,
+                  i.summary as short_description, i.description as detailed_description,
+                  i.summary as problem_statement, i.description as proposed_solution,
+                  i.target_audience as target_users, i.business_impact as expected_impact,
+                  i.priority as cgo_priority, i.status, i.is_public, i.views_count as view_count,
+                  i.created_at, i.updated_at,
+                  c.name as category_name, pr.full_name as submitter_name, pr.role as submitter_role
+           FROM ideas i
+           LEFT JOIN categories c ON c.id = i.category_id
+           LEFT JOIN profiles pr ON pr.user_id = i.author_id
+           WHERE i.id = $1 OR i.slug = $1`,
+          [identifier]
+        );
+        if (ideaRes.rows.length > 0) {
+          idea = {
+            ...ideaRes.rows[0],
+            submitter_id: ideaRes.rows[0].author_id,
+            current_owner_role: ideaRes.rows[0].status === 'submitted' ? 'CGO' : ideaRes.rows[0].status === 'cgo_review' ? 'CGO' : ideaRes.rows[0].status === 'ceo_review' ? 'CEO' : ideaRes.rows[0].status === 'cfo_review' ? 'CFO' : 'DEVELOPER',
+          };
+        }
+      } catch {
+        // Fallback for older column naming
+        const fallbackRes = await query(
+          `SELECT i.id, i.submitter_id, i.title, i.slug, i.summary as short_description,
+                  i.problem_statement, i.proposed_solution, i.target_audience as target_users,
+                  i.status, i.cgo_priority, i.estimated_impact as expected_impact,
+                  i.is_public, i.view_count, i.created_at, i.updated_at,
+                  c.name as category_name, pr.full_name as submitter_name, pr.role as submitter_role
+           FROM ideas i
+           LEFT JOIN categories c ON c.id = i.category_id
+           LEFT JOIN profiles pr ON pr.user_id = i.submitter_id
+           WHERE i.id = $1 OR i.slug = $1`,
+          [identifier]
+        ).catch(() => ({ rows: [] }));
+        if (fallbackRes.rows.length > 0) {
+          idea = fallbackRes.rows[0];
+        }
+      }
 
-      if (ideaRes.rows.length === 0) {
+      if (!idea) {
         return apiError('Idea not found', 404);
       }
 
-      const idea = ideaRes.rows[0];
-
       // 2. Fetch Status History
-      const historyRes = await query(
-        `SELECT h.id, h.old_status, h.new_status, h.notes, h.created_at,
-                p.full_name as actor_name, p.role as actor_role
-         FROM idea_status_history h
-         LEFT JOIN profiles p ON p.user_id = h.changed_by
-         WHERE h.idea_id = $1
-         ORDER BY h.created_at ASC`,
-        [idea.id]
-      );
+      let historyRows: any[] = [];
+      try {
+        const historyRes = await query(
+          `SELECT h.id, h.from_status as old_status, h.to_status as new_status, h.notes, h.created_at,
+                  h.actor_role, p.full_name as actor_name
+           FROM idea_status_history h
+           LEFT JOIN profiles p ON p.user_id = h.actor_id
+           WHERE h.idea_id = $1
+           ORDER BY h.created_at ASC`,
+          [idea.id]
+        );
+        historyRows = historyRes.rows;
+      } catch {
+        // Fallback
+        const fallbackHist = await query(
+          `SELECT h.id, h.old_status, h.new_status, h.notes, h.created_at,
+                  p.full_name as actor_name, p.role as actor_role
+           FROM idea_status_history h
+           LEFT JOIN profiles p ON p.user_id = h.changed_by
+           WHERE h.idea_id = $1
+           ORDER BY h.created_at ASC`,
+          [idea.id]
+        ).catch(() => ({ rows: [] }));
+        historyRows = fallbackHist.rows;
+      }
 
       // 3. Fetch Reviews
-      const reviewsRes = await query(
-        `SELECT r.id, r.score, r.feedback, r.recommendation, r.created_at,
-                p.full_name as reviewer_name, p.role as reviewer_role
-         FROM idea_reviews r
-         LEFT JOIN profiles p ON p.user_id = r.reviewer_id
-         WHERE r.idea_id = $1
-         ORDER BY r.created_at ASC`,
-        [idea.id]
-      );
+      let reviewRows: any[] = [];
+      try {
+        const reviewsRes = await query(
+          `SELECT r.id, r.feasibility_score as score, r.notes as feedback, r.verdict as recommendation, r.created_at,
+                  p.full_name as reviewer_name, r.role as reviewer_role
+           FROM idea_reviews r
+           LEFT JOIN profiles p ON p.user_id = r.reviewer_id
+           WHERE r.idea_id = $1
+           ORDER BY r.created_at ASC`,
+          [idea.id]
+        );
+        reviewRows = reviewsRes.rows;
+      } catch {
+        const fallbackRev = await query(
+          `SELECT r.id, r.score, r.feedback, r.recommendation, r.created_at,
+                  p.full_name as reviewer_name, p.role as reviewer_role
+           FROM idea_reviews r
+           LEFT JOIN profiles p ON p.user_id = r.reviewer_id
+           WHERE r.idea_id = $1
+           ORDER BY r.created_at ASC`,
+          [idea.id]
+        ).catch(() => ({ rows: [] }));
+        reviewRows = fallbackRev.rows;
+      }
 
       // 4. Calculate Allowed Transitions for this user
       const currentStatus = (idea.status as string).toUpperCase() as IdeaStatus;
@@ -95,8 +153,8 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         idea: {
           ...idea,
           is_owner: isOwner,
-          status_history: historyRes.rows,
-          reviews: reviewsRes.rows,
+          status_history: historyRows,
+          reviews: reviewRows,
           allowed_transitions: allowedTransitions,
         },
       });
